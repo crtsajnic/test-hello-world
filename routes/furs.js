@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
 		res.json({ code: 234 });
 	}
 
-	const req = https.request(options, ress => {
+	const reqq = https.request(options, ress => {
 		console.log(`statusCode: ${ress.statusCode}`)
 
 		ress.on('data', d => {
@@ -31,11 +31,11 @@ router.get('/', function (req, res, next) {
 		})
 	})
 
-	req.on('error', error => {
+	reqq.on('error', error => {
 		res.json(error);
 	})
 
-	req.end()
+	reqq.end()
 
 });
 
