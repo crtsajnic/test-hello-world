@@ -15,14 +15,14 @@ const fursUrl = {
 }
 
 router.get('/', function (req, res, next) {
-	let apiKey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
+	const apiKey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
 	let qrCode = req.query.code;
 
 	if (qrCode != null && qrCode.length == 4) {
 		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
 		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
 
-		console.log(fursUrl);
+		//console.log(fursUrl);
 
 		const reqq = https.request(fursUrl, ress => {
 			console.log(`statusCode: ${ress.statusCode}`)
@@ -33,6 +33,7 @@ router.get('/', function (req, res, next) {
 		})
 
 		reqq.on('error', error => {
+			console.log(error);
 			res.json(error);
 		})
 
