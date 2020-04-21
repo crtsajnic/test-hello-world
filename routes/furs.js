@@ -23,30 +23,20 @@ router.get('/', function (req, res, next) {
 		res.json({ code: 234 });
 	}
 
+	const req = https.request(options, ress => {
+		console.log(`statusCode: ${ress.statusCode}`)
 
-	
-	
+		ress.on('data', d => {
+			res.json(error);
+		})
+	})
 
-	//const req = https.request(options, res => {
-	//	console.log(`statusCode: ${res.statusCode}`)
-//
-	//	res.on('data', d => {
-	//		process.stdout.write(d)
-	//	})
-	//})
-//
-	//req.on('error', error => {
-	//	console.error(error)
-	//})
-//
-	//req.end()
+	req.on('error', error => {
+		res.json(error);
+	})
 
-	//var day = (Math.round((Math.random() * 31) + 1));
-	//if (day < 10) {
-	//	day = '0' + day.toString();
-	//}
-	//
-	//res.json({ amount: ((Math.random() * 100) + 1).toFixed(2).toString(), date:'2020-04-' + day + 'T07:15:00.000', title: 'QR CODE SAMPLE' });
+	req.end()
+
 });
 
 module.exports = router;
