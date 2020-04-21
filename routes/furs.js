@@ -10,7 +10,7 @@ const fursUrl = {
 	path: '/v1/getInvoice?qr={qr}&apikey={apiKey}',
 	method: 'GET',
 	//key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
-	cert: fs.readFileSync("/root/test-hello-world/test-tls.cer"),
+	cert: fs.readFileSync("/root/test-hello-world/test-tls.pem"),
 	secureProtocol: "TLSv1_2_method"
 }
 
