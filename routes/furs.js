@@ -14,14 +14,14 @@ router.get('/', function (req, res, next) {
 	let apiKey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
 	let qrCode = req.query.code;
 
-	if(qrCode != null && qrCode.length == 4) {
-		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
-		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
-	
-		res.json(fursUrl);
-	} else {
-		res.json({ code: 234 });
-	}
+	//if(qrCode != null && qrCode.length == 4) {
+	//	fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
+	//	fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
+	//
+	//	res.json(fursUrl);
+	//} else {
+	//	res.json({ code: 234 });
+	//}
 
 	const reqq = https.request(options, ress => {
 		console.log(`statusCode: ${ress.statusCode}`)
