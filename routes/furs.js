@@ -1,5 +1,6 @@
 var express = require('express');
-const https = require('https')
+const https = require('https');
+const fs = require("fs");
 var router = express.Router();
 
 
@@ -7,7 +8,9 @@ const fursUrl = {
 	hostname: 'blagajne-test.fu.gov.si',
 	port: 9007,
 	path: '/v1/getInvoice?qr={qr}&apikey={apiKey}',
-	method: 'GET'
+	method: 'GET',
+	//key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
+  	cert: fs.readFileSync("/root/test-hello-world/test-tls.cer")
 }
 
 router.get('/', function (req, res, next) {
