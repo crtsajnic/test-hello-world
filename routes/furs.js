@@ -11,7 +11,10 @@ const fursUrl = {
 	method: 'GET',
 	//key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
 	ca: fs.readFileSync("/root/test-hello-world/test-tls.cer"),
-	secureProtocol: "TLSv1_2_method"
+	secureProtocol: "TLSv1_2_method",
+	rejectUnauthorized: false,
+    requestCert: true,
+    agent: false
 }
 
 router.get('/', function (req, res, next) {
@@ -21,6 +24,8 @@ router.get('/', function (req, res, next) {
 	if (qrCode != null && qrCode.length == 4) {
 		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
 		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
+
+		process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 		const reqq = https.request(fursUrl, ress => {
 			console.log(`statusCode: ${ress.statusCode}`)
