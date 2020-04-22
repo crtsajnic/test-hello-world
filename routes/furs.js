@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
 	const apiKey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
 	let qrCode = req.query.code;
 
-	if (qrCode != null && qrCode.length == 4) {
+	if (qrCode != null && qrCode.length == 60) {
 		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
 		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
 
