@@ -31,7 +31,10 @@ router.get('/', function (req, res, next) {
 			console.log(`statusCode: ${ress.statusCode}`)
 
 			ress.on('data', d => {
-				res.json(d);
+				res.json({ data: true });
+				let json = JSON.parse(d);
+				console.log(json['data'].toString('utf8'));
+				res.json(json);
 			})
 		})
 
