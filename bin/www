@@ -20,9 +20,9 @@ app.set('port', port);
  * Create HTTP server.
  */
 var server = https.createServer({
-	key: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
-  cert: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
-  ca: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
+	key: fs.readFileSync('/root/test-hello-server/bin/test-tls.cer'),
+  cert: fs.readFileSync('/root/test-hello-server/bin/test-tls.cer'),
+  ca: fs.readFileSync('/root/test-hello-server/bin/test-tls.cer'),
 	ciphers: [
  		'ECDHE-RSA-AES128-GCM-SHA256',
  		'ECDHE-ECDSA-AES128-GCM-SHA256',
@@ -54,8 +54,8 @@ const fursUrl = {
 	port: 9007,
 	path: '/v1/getInvoice?qr={qr}&apikey={apiKey}',
 	method: 'GET',
-	key: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
-	cert: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
+	key: fs.readFileSync("/root/test-hello-world/bin/test-tls.cer"),
+	cert: fs.readFileSync("/root/test-hello-world/bin/server.crt"),
 	secureProtocol: "TLSv1_2_method"
 }
 
