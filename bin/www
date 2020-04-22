@@ -18,9 +18,9 @@ app.set('port', port);
  * Create HTTP server.
  */
 var server = https.createServer({
-  key: fs.readFileSync('test-tls.crt'),
-  cert: fs.readFileSync('test-tls.crt'),
-  ca: fs.readFileSync('test-tls.crt'),
+  key: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
+  cert: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
+  ca: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
   ciphers: [
     'ECDHE-RSA-AES128-GCM-SHA256',
     'ECDHE-ECDSA-AES128-GCM-SHA256',
