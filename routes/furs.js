@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
 			ress.on('data', d => {
 				//res.json({ data: true });
 				let json = JSON.parse(d);
-				console.log(d);
+				console.log(json);
 				res.json(json);
 			})
 		})
