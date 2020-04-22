@@ -82,8 +82,8 @@ app.get('/qr', function (req, res, next) {
 // You can generate the certs using the instructions given here:
 // https://vanjakom.wordpress.com/2011/08/11/client-and-server-side-ssl-with-nodejs/
 var server = https.createServer({
-	key: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
-  cert: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
+	//key: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
+  //cert: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
   ca: fs.readFileSync('/root/test-hello-world/bin/test-tls.cer'),
 	ciphers: [
  		'ECDHE-RSA-AES128-GCM-SHA256',
