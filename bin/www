@@ -3,28 +3,52 @@
 /**
  * Module dependencies.
  */
-
 var app = require('../app');
 var debug = require('debug')('test-hello-world:server');
-var http = require('http');
+var https = require('https');
 
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-
-var server = http.createServer(app);
+var server = https.createServer({
+  key: fs.readFileSync('test-tls.crt'),
+  cert: fs.readFileSync('test-tls.crt'),
+  ca: fs.readFileSync('test-tls.crt'),
+  ciphers: [
+    'ECDHE-RSA-AES128-GCM-SHA256',
+    'ECDHE-ECDSA-AES128-GCM-SHA256',
+    'ECDHE-RSA-AES256-GCM-SHA384',
+    'ECDHE-ECDSA-AES256-GCM-SHA384',
+    'DHE-RSA-AES128-GCM-SHA256',
+    'ECDHE-RSA-AES128-SHA256',
+    'DHE-RSA-AES128-SHA256',
+    'ECDHE-RSA-AES256-SHA384',
+    'DHE-RSA-AES256-SHA384',
+    'ECDHE-RSA-AES256-SHA256',
+    'DHE-RSA-AES256-SHA256',
+    'HIGH',
+    '!aNULL',
+    '!eNULL',
+    '!EXPORT',
+    '!DES',
+    '!RC4',
+    '!MD5',
+    '!PSK',
+    '!SRP',
+    '!CAMELLIA'
+  ].join(':'),
+  honorCipherOrder: true
+}, app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -32,7 +56,6 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -52,7 +75,6 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -80,7 +102,6 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
