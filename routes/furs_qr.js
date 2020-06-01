@@ -21,6 +21,30 @@ router.get('/', function (req, res, next) {
 	const apiKey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
 	let qrCode = req.query.code;
 
+	if(qrCode == 'debug') {
+		res.json({
+			"Data": {
+				"TaxNumber": 12345678,
+				"UniqueInvoiceID": "6371d352-57af-4a84-b93d-fe33944762ab",
+				"ProtectedID": "34905bcff14b381039af2e9d7eee54bb",
+				"IssueDateTime": "2015-08-07T13:05:24",
+				"IssuerName": "FURS",
+				"IssuerAddress": "Šmartinska cesta 55, 1000 Ljubljana",
+				"InvoiceAmount": 66.71,
+				"PaymentAmount": 47.76,
+				"InvoiceIdentifier": {
+					"BusinessPremiseID": "TRGOVINA1",
+					"ElectronicDeviceID": "BLAG2",
+					"InvoiceNumber": "145"
+				}
+			},
+			"status": {
+				"code": "1",
+				"msg": "Invoice found"
+			}
+		});
+	}
+	
 	if (qrCode != null && qrCode.length == 60) {
 		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
 		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
