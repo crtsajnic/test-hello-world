@@ -49,7 +49,7 @@ router.get('/', function (req, res, next) {
 		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
 		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
 
-		process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+		//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 		const reqq = https.request(fursUrl, ress => {
 			console.log(`statusCode: ${ress.statusCode}`)
