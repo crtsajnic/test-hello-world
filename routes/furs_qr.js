@@ -10,7 +10,7 @@ const fursUrl = {
 	path: '/v1/getInvoice?qr={qr}&apikey={apiKey}',
 	method: 'GET',
 	//key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
-	ca: fs.readFileSync("/root/test-hello-world/test-tls.cer"),
+	cert: fs.readFileSync("/root/test-hello-world/test-tls.cer"),
 	secureProtocol: "TLSv1_2_method",
 	rejectUnauthorized: false,
     requestCert: true,
@@ -49,7 +49,7 @@ router.get('/', function (req, res, next) {
 		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
 		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
 
-		process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+		//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 		const reqq = https.request(fursUrl, ress => {
 			console.log(`statusCode: ${ress.statusCode}`)
