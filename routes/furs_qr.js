@@ -3,22 +3,30 @@ const https = require('https');
 const fs = require("fs");
 var router = express.Router();
 
+var testEnv = false;
 
-const fursUrl = {
-	hostname: 'blagajne-test.fu.gov.si',
+const options = {
+	hostname: testEnv ? 'blagajne-test.fu.gov.si' : 'blagajne.fu.gov.si',
 	port: 9007,
-	path: '/v1/getInvoice?qr={qr}&apikey={apiKey}',
+	path: '/v1/getInvoice?qr={qr}&apikey={apikey}',
 	method: 'GET',
-	//key: fs.readFileSync("/srv/www/keys/my-site-key.pem"),
-	cert: fs.readFileSync("/root/test-hello-world/test-tls.cer"),
-	secureProtocol: "TLSv1_2_method",
-	rejectUnauthorized: false,
-    requestCert: true,
-    agent: false
+	//key: testEnv ? null : 
+	//				fs.readFileSync("/root/test-hello-world/key-blagajne.fu.gov.si.pem"),
+	cert: testEnv ? fs.readFileSync("/root/test-hello-world/test-tls.cer") : 
+					fs.readFileSync("/root/test-hello-world/interRootCombined.pem"),
+	//ca: testEnv ?   null : 
+	//				fs.readFileSync("/root/test-hello-world/ca-si-trust-root.crt"),
+	//secureProtocol: "TLSv1_2_method",
+	rejectUnauthorized: !testEnv,
+	requestCert: true,
+	//agent: false
 }
 
+//fursUrl.agent = new https.Agent(fursUrl);
+
+
 router.get('/', function (req, res, next) {
-	const apiKey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
+	const apikey = 'ZaDEKtHoSdGa0P4TwWV3tm6FkwUo71GL';
 	let qrCode = req.query.code;
 
 	if(qrCode == 'debug') {
@@ -46,21 +54,24 @@ router.get('/', function (req, res, next) {
 	}
 	
 	if (qrCode != null && qrCode.length == 60) {
-		fursUrl.path = fursUrl.path.replace('{qr}', qrCode);
-		fursUrl.path = fursUrl.path.replace('{apiKey}', apiKey);
+		options.path = options.path.replace('{qr}', qrCode);
+		options.path = options.path.replace('{apikey}', apikey);
 
 		//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-		const reqq = https.request(fursUrl, ress => {
+		var reqq = https.request(options, ress => {
 			console.log(`statusCode: ${ress.statusCode}`)
 
 			ress.on('data', d => {
-				//res.json({ data: true });
 				let json = JSON.parse(d);
-				console.log(json);
+				//console.log(json);
 				res.json(json);
-			})
-		})
+			});
+
+			ress.on('end', function() {
+				console.log('END OF REQUEST');
+			});
+		});
 
 		reqq.on('error', error => {
 			console.log(error);
